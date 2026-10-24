@@ -1,7 +1,9 @@
-from pydantic import BaseModel, Field
-from dotenv import load_dotenv
 import os
 from pathlib import Path
+
+from dotenv import load_dotenv
+from pydantic import BaseModel, Field
+
 from assistant_core.errors import ConfigError
 
 

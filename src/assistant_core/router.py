@@ -1,6 +1,5 @@
 from assistant_core.models import Intent
 
-
 GREETINGS = frozenset({"hi", "hello", "hey", "xin chao"}) 
   
 def route(text: str, office_names: set[str]) -> Intent: 
