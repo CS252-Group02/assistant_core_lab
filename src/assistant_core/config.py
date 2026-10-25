@@ -1,7 +1,9 @@
-from pydantic import BaseModel, Field
-from dotenv import load_dotenv
 import os
 from pathlib import Path
+
+from dotenv import load_dotenv
+from pydantic import BaseModel, Field
+
 from assistant_core.errors import ConfigError
 
 
@@ -30,6 +32,5 @@ def load_settings(env_file: str | None = ".env") -> Settings:
     )
 
     if s.llm_provider != "stub" and not s.llm_api_key:
-        raise ConfigError(
-            f"LLM_API_KEY is required when LLM_PROVIDER={s.llm_provider!r}")
+        raise ConfigError(f"LLM_API_KEY is required when LLM_PROVIDER={s.llm_provider!r}")
     return s
