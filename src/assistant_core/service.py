@@ -13,7 +13,7 @@ from assistant_core.responder import Responder, TemplateResponder, make_responde
 from assistant_core.router import route
 from assistant_core.tools import parse_credits, tuition
 
-log = logging.getLogger("assistant_core")
+log = logging.getLogger(__name__)
 
 
 class AssistantService:
@@ -46,6 +46,8 @@ class AssistantService:
             return self._fee(text)
         if intent is Intent.OFFICE:
             o = self.offices.find(text)
+            if o is None:
+                return Response(answer="Sorry, I don't know that yet.", intent=Intent.UNKNOWN)
             return Response(answer=f"{o.name}: room {o.room}, open {o.hours}.", intent=intent)
         return self._rule(text)
 
