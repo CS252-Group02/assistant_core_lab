@@ -63,6 +63,19 @@ def test_chat_validation_error(client: TestClient) -> None:
     assert response.json()["error"]["code"] == "invalid_request"
 
 
+def test_rate_limit(client: TestClient, settings: Settings) -> None:
+    for _ in range(settings.rate_limit_per_min):
+        response = client.post("/v1/chat", json={"message": "Where is the Library?"})
+        assert response.status_code == 200
+
+    response = client.post("/v1/chat", json={"message": "Where is the Library?"})
+    assert response.status_code == 429
+    assert response.json()["error"] == {
+        "code": "too_many_requests",
+        "message": "Too many requests",
+    }
+
+
 def test_weather_uses_mock_response(client: TestClient) -> None:
     response = client.get("/v1/weather")
     assert response.status_code == 200
