@@ -94,6 +94,10 @@ class OfficeDirectory:
         """Convenience method returning names set."""
         return self.names
 
+    def all(self) -> list[Office]:
+        """Return all offices sorted by name."""
+        return sorted(self._offices.values(), key=lambda office: office.name)
+
     def find(self, text: str) -> Office | None:
         """Find an office whose name appears as a substring in the input text."""
         t = text.lower()

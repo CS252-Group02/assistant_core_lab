@@ -47,6 +47,16 @@ def client(settings: Settings, service: AssistantService) -> Iterator[TestClient
         weather._client.close()
 
 
+def test_offices_status_ok(client: TestClient) -> None:
+    response = client.get("/v1/offices")
+    assert response.status_code == 200
+
+
+def test_offices_includes_library(client: TestClient) -> None:
+    response = client.get("/v1/offices")
+    assert any(office["name"] == "Library" for office in response.json())
+
+
 def test_chat_validation_error(client: TestClient) -> None:
     response = client.post("/v1/chat", json={"message": ""})
     assert response.status_code == 422

@@ -56,6 +56,10 @@ def create_app(
     def health() -> dict:
         return {"status": "ok", "version": app.version}
 
+    @app.get("/v1/offices")
+    def list_offices() -> list[dict]:
+        return [o.__dict__ for o in service.offices.all()]
+
     @app.post(
         "/v1/chat",
         response_model=ChatResponse,
