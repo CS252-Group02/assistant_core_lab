@@ -47,10 +47,33 @@ def client(settings: Settings, service: AssistantService) -> Iterator[TestClient
         weather._client.close()
 
 
+def test_offices_status_ok(client: TestClient) -> None:
+    response = client.get("/v1/offices")
+    assert response.status_code == 200
+
+
+def test_offices_includes_library(client: TestClient) -> None:
+    response = client.get("/v1/offices")
+    assert any(office["name"] == "Library" for office in response.json())
+
+
 def test_chat_validation_error(client: TestClient) -> None:
     response = client.post("/v1/chat", json={"message": ""})
     assert response.status_code == 422
     assert response.json()["error"]["code"] == "invalid_request"
+
+
+def test_rate_limit(client: TestClient, settings: Settings) -> None:
+    for _ in range(settings.rate_limit_per_min):
+        response = client.post("/v1/chat", json={"message": "Where is the Library?"})
+        assert response.status_code == 200
+
+    response = client.post("/v1/chat", json={"message": "Where is the Library?"})
+    assert response.status_code == 429
+    assert response.json()["error"] == {
+        "code": "too_many_requests",
+        "message": "Too many requests",
+    }
 
 
 def test_weather_uses_mock_response(client: TestClient) -> None:
