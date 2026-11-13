@@ -85,10 +85,11 @@ blocks the system temp directory. The all-in-one runner handles this automatical
 | Configuration/scripts | `python -m pytest -q tests/lab5/test_config.py tests/lab5/test_scripts.py -k "not checker"` |
 | SQL checker | `python -m pytest -q tests/lab5/test_scripts.py -k checker` |
 
-The unfinished checker extension adds optional `--strict` to the checker without breaking its existing default
+The checker supports optional `--strict` without breaking its existing default
 or optional answers-path argument. Strict mode prints the usual score and exits
 0 only for full marks, otherwise 1 (missing answers, incorrect results, SQL errors).
-Use argparse to support the flag with or without a custom answers path. No SQL
+The argparse CLI accepts the flag before or after a custom answers path.
+Input/setup errors exit 1; argument usage errors exit 2. No SQL
 answers should be hardcoded into the checker.
 
 Some seed/migration tests also depend on R1. This is an implementation dependency. The supplied scripts already create their schema;

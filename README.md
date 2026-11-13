@@ -63,9 +63,20 @@ python practice/check.py
 Failures must come from missing implementation, not missing dependencies or test
 collection errors. No pending tests are skipped or marked xfail.
 
-The original SQL checker prints a score but does not fail the process for wrong
-answers. The optional `--strict` mode is not implemented yet; use the SQL acceptance tests to
-enforce correctness. The full suite already tests every Q1-Q15 answer.
+The SQL checker preserves the original score-only mode and supports optional
+strict exit codes for automation:
+
+```powershell
+python practice/check.py
+python practice/check.py --strict
+python practice/check.py path/to/answers.sql --strict
+```
+
+Default mode exits 0 after scoring, even for missing/wrong answers or SQL errors.
+Strict mode exits 0 only for full marks and 1 otherwise. Input/setup failures exit
+1 in either mode; invalid command-line arguments exit 2. No SQL answers are
+hardcoded in the checker. See [TV7 verification](docs/lab5/tv7-verification.md)
+and the [submission/demo guide](docs/lab5/submission-evidence.md).
 
 ## Run the API
 
