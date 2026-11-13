@@ -4,3 +4,5 @@ pytest==8.3.3
 ruff==0.6.9
 fastapi==0.115.14
 httpx==0.28.1
+uvicorn==0.30.6
+sqlmodel==0.0.22

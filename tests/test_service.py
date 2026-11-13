@@ -1,16 +1,14 @@
 """Step 9 service behavior using real tools, knowledge, and offline responders."""
 
 import logging
-
-import pytest
-
 from pathlib import Path
 
 import pytest
 
 from assistant_core.config import Settings
 from assistant_core.knowledge import Handbook, OfficeDirectory
-from assistant_core.responder import StubLLMResponder
+from assistant_core.models import Intent, Message, Source
+from assistant_core.responder import StubLLMResponder, TemplateResponder
 from assistant_core.service import AssistantService
 
 
@@ -27,10 +25,6 @@ def service() -> AssistantService:
         handbook,
         StubLLMResponder(fail=False),
     )
-
-from assistant_core.models import Intent, Message, Source
-from assistant_core.responder import StubLLMResponder, TemplateResponder
-from assistant_core.service import AssistantService
 
 
 def test_greeting(service: AssistantService) -> None:
