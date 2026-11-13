@@ -1,17 +1,16 @@
-"""Check your SQL answers.   Run:  python check.py   (optionally: python check.py my_answers.sql)
+"""Check SQL answers; --strict exits 1 unless every answer is correct.
 
-For each question it runs your query on school.db and compares the result with expected.json.
+Usage: python practice/check.py [answers.sql] [--strict]
+Without --strict, incomplete or incorrect answers still print a score and exit 0.
+Input/setup errors exit 1; invalid command-line arguments exit 2.
 """
+
+import argparse
 import json
 import re
 import sqlite3
 import sys
 from pathlib import Path
-
-here = Path(__file__).parent
-db = here / "school.db"
-if not db.exists():
-    sys.exit("school.db not found — run:  python make_school_db.py")
 
 
 def split(path: Path) -> dict[str, str]:
@@ -24,24 +23,50 @@ def split(path: Path) -> dict[str, str]:
     return out
 
 
-mine = split(Path(sys.argv[1]) if len(sys.argv) > 1 else here / "my_answers.sql")
-ref = json.loads((here / "expected.json").read_text(encoding="utf-8"))
-con = sqlite3.connect(db)
-score = 0
-for q in sorted(ref, key=lambda k: int(k[1:])):
-    sql = mine.get(q, "")
-    if not sql:
-        print(f"{q:4} ..  not answered yet")
-        continue
+def main(argv: list[str] | None = None) -> int:
+    here = Path(__file__).resolve().parent
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("answers", nargs="?", type=Path, default=here / "my_answers.sql")
+    parser.add_argument("--strict", action="store_true", help="Exit 1 unless every answer is correct")
+    args = parser.parse_args(argv)
+    db = here / "school.db"
+    if not db.exists():
+        print("school.db not found - run: python practice/make_school_db.py", file=sys.stderr)
+        return 1
     try:
-        got = con.execute(sql).fetchall()
+        mine = split(args.answers)
+        ref = json.loads((here / "expected.json").read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        print(f"Cannot read checker input: {exc}", file=sys.stderr)
+        return 1
+
+    score = 0
+    try:
+        con = sqlite3.connect(db)
     except sqlite3.Error as exc:
-        print(f"{q:4} ERR {exc}")
-        continue
-    got = [list(r) for r in got]
-    want, ordered = ref[q]["rows"], ref[q]["ordered"]
-    same = got == want if ordered else sorted(map(repr, got)) == sorted(map(repr, want))
-    score += same
-    detail = "" if same else f"expected {want[:3]}{' ...' if len(want) > 3 else ''}, got {got[:3]}"
-    print(f"{q:4} {'OK ' if same else 'NO '} " + detail)
-print(f"\nScore: {score}/{len(ref)}")
+        print(f"Cannot open school.db: {exc}", file=sys.stderr)
+        return 1
+    try:
+        for q in sorted(ref, key=lambda k: int(k[1:])):
+            sql = mine.get(q, "")
+            if not sql:
+                print(f"{q:4} ..  not answered yet")
+                continue
+            try:
+                got = [list(row) for row in con.execute(sql).fetchall()]
+            except sqlite3.Error as exc:
+                print(f"{q:4} ERR {exc}")
+                continue
+            want, ordered = ref[q]["rows"], ref[q]["ordered"]
+            same = got == want if ordered else sorted(map(repr, got)) == sorted(map(repr, want))
+            score += same
+            detail = "" if same else f"expected {want[:3]}{' ...' if len(want) > 3 else ''}, got {got[:3]}"
+            print(f"{q:4} {'OK ' if same else 'NO '} " + detail)
+    finally:
+        con.close()
+    print(f"\nScore: {score}/{len(ref)}")
+    return int(args.strict and score != len(ref))
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
