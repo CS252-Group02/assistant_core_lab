@@ -31,5 +31,11 @@ def average_grade(con: sqlite3.Connection, course_code: str) -> float | None:
 
 def transcript(con: sqlite3.Connection, student_id: int) -> list[tuple[str, int, float | None]]:
     """(course title, credits, grade) for one student, sorted by title. Needs a JOIN."""
-    # TODO D3: join enrollments with courses on course_code = code, filter by student_id, order by title
-    raise NotImplementedError
+    return con.execute(
+        "SELECT c.title, c.credits, e.grade "
+        "FROM enrollments AS e "
+        "JOIN courses AS c ON c.code = e.course_code "
+        "WHERE e.student_id = ? "
+        "ORDER BY c.title",
+        (student_id,),
+    ).fetchall()
