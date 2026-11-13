@@ -25,8 +25,10 @@ def add_student(con: sqlite3.Connection, name: str, year: int, program: str) -> 
 
 def average_grade(con: sqlite3.Connection, course_code: str) -> float | None:
     """Average grade in a course (ignoring NULL), rounded to 2 decimals; None if no grades."""
-    # TODO D2: SELECT AVG(grade) FROM enrollments WHERE course_code = ?   — then round, or return None
-    raise NotImplementedError
+    (avg,) = con.execute(
+        "SELECT AVG(grade) FROM enrollments WHERE course_code = ?", (course_code,)
+    ).fetchone()
+    return None if avg is None else round(avg, 2)
 
 
 def transcript(con: sqlite3.Connection, student_id: int) -> list[tuple[str, int, float | None]]:
