@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime, timezone
+from typing import TYPE_CHECKING
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Request, status
 from fastapi.exceptions import RequestValidationError
@@ -20,9 +21,17 @@ from assistant_api.weather import ExternalServiceError, WeatherClient
 from assistant_core import AssistantService, Message, build_service
 from assistant_core.config import Settings, load_settings
 
+if TYPE_CHECKING:
+    from assistant_api.db import Repository
+
+
 def create_app(
-    settings: Settings | None = None, service: AssistantService | None = None, weather: WeatherClient | None = None
+    settings: Settings | None = None,
+    service: AssistantService | None = None,
+    weather: WeatherClient | None = None,
+    repo: Repository | None = None,
 ) -> FastAPI:
+    # TODO Lab 5: use the injected repository, or build one from settings (see docs/lab5/README.md).
     settings = settings or load_settings()
     service = service or build_service(settings)
     weather = weather or WeatherClient(
