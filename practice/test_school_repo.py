@@ -30,6 +30,64 @@ def test_d1_no_sql_injection(con):
     assert con.execute("SELECT COUNT(*) FROM students").fetchone()[0] == 9     # table still there
 
 
+
+def test_d1_commits_and_preserves_input(tmp_path):
+    path = tmp_path / "school.db"
+    name = "x', 1, 'CS'); DROP TABLE students;--"
+    program = "CS'); DROP TABLE courses;--"
+    with sqlite3.connect(path) as writer:
+        writer.executescript(SQL)
+        new_id = repo.add_student(writer, name, 2, program)
+        assert not writer.in_transaction
+        with sqlite3.connect(path) as reader:
+            assert reader.execute(
+                "SELECT name, year, program FROM students WHERE id = ?", (new_id,)
+            ).fetchone() == (name, 2, program)
+            assert reader.execute("SELECT COUNT(*) FROM students").fetchone()[0] == 9
+            assert reader.execute("SELECT COUNT(*) FROM courses").fetchone()[0] == 5
+
+
+def test_d1_stores_fields_and_returns_unique_ids(con):
+    first_id = repo.add_student(con, "Minh", 1, "CS")
+    second_id = repo.add_student(con, "Lan", 3, "SE")
+    assert isinstance(first_id, int)
+    assert isinstance(second_id, int)
+    assert first_id != second_id
+    assert con.execute(
+        "SELECT id, name, year, program FROM students WHERE id IN (?, ?) ORDER BY id",
+        (first_id, second_id),
+    ).fetchall() == [(first_id, "Minh", 1, "CS"), (second_id, "Lan", 3, "SE")]
+
+
+@pytest.mark.parametrize("name, program", [
+    ("Nguyễn Thị Ánh", "Khoa học máy tính"),
+    ("O'Connor", "Student's program"),
+])
+def test_d1_preserves_unicode_and_quotes(con, name, program):
+    new_id = repo.add_student(con, name, 2, program)
+    assert con.execute(
+        "SELECT name, year, program FROM students WHERE id = ?", (new_id,)
+    ).fetchone() == (name, 2, program)
+
+
+def test_d1_persists_after_writer_closes(tmp_path):
+    path = tmp_path / "school.db"
+    writer = sqlite3.connect(path)
+    try:
+        writer.executescript(SQL)
+        new_id = repo.add_student(writer, "Minh", 1, "CS")
+    finally:
+        writer.close()
+
+    reader = sqlite3.connect(path)
+    try:
+        assert reader.execute(
+            "SELECT name, year, program FROM students WHERE id = ?", (new_id,)
+        ).fetchone() == ("Minh", 1, "CS")
+    finally:
+        reader.close()
+
+
 def test_d2_average_grade(con):
     assert repo.average_grade(con, "CSC10004") == 5.25
     assert repo.average_grade(con, "XYZ") is None

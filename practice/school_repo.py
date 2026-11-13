@@ -18,9 +18,12 @@ def students_in_program(con: sqlite3.Connection, program: str) -> list[str]:
 
 def add_student(con: sqlite3.Connection, name: str, year: int, program: str) -> int:
     """Insert a student and return the new id."""
-    # TODO D1: cur = con.execute("INSERT INTO students (name, year, program) VALUES (?, ?, ?)", (name, year, program))
-    #          con.commit(); return cur.lastrowid
-    raise NotImplementedError
+    cur = con.execute(
+        "INSERT INTO students (name, year, program) VALUES (?, ?, ?)",
+        (name, year, program),
+    )
+    con.commit()
+    return cur.lastrowid
 
 
 def average_grade(con: sqlite3.Connection, course_code: str) -> float | None:
