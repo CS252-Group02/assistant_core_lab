@@ -30,6 +30,23 @@ def test_d1_no_sql_injection(con):
     assert con.execute("SELECT COUNT(*) FROM students").fetchone()[0] == 9     # table still there
 
 
+
+def test_d1_commits_and_preserves_input(tmp_path):
+    path = tmp_path / "school.db"
+    name = "x', 1, 'CS'); DROP TABLE students;--"
+    program = "CS'); DROP TABLE courses;--"
+    with sqlite3.connect(path) as writer:
+        writer.executescript(SQL)
+        new_id = repo.add_student(writer, name, 2, program)
+        assert not writer.in_transaction
+        with sqlite3.connect(path) as reader:
+            assert reader.execute(
+                "SELECT name, year, program FROM students WHERE id = ?", (new_id,)
+            ).fetchone() == (name, 2, program)
+            assert reader.execute("SELECT COUNT(*) FROM students").fetchone()[0] == 9
+            assert reader.execute("SELECT COUNT(*) FROM courses").fetchone()[0] == 5
+
+
 def test_d2_average_grade(con):
     assert repo.average_grade(con, "CSC10004") == 5.25
     assert repo.average_grade(con, "XYZ") is None
