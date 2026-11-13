@@ -59,6 +59,17 @@ def test_d1_stores_fields_and_returns_unique_ids(con):
     ).fetchall() == [(first_id, "Minh", 1, "CS"), (second_id, "Lan", 3, "SE")]
 
 
+@pytest.mark.parametrize("name, program", [
+    ("Nguyễn Thị Ánh", "Khoa học máy tính"),
+    ("O'Connor", "Student's program"),
+])
+def test_d1_preserves_unicode_and_quotes(con, name, program):
+    new_id = repo.add_student(con, name, 2, program)
+    assert con.execute(
+        "SELECT name, year, program FROM students WHERE id = ?", (new_id,)
+    ).fetchone() == (name, 2, program)
+
+
 def test_d2_average_grade(con):
     assert repo.average_grade(con, "CSC10004") == 5.25
     assert repo.average_grade(con, "XYZ") is None
