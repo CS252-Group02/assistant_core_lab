@@ -7,10 +7,11 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
 from sqlalchemy import inspect
 from sqlmodel import Session, select
 
-from assistant_api.db import ChatSession, Feedback, Interaction, Repository, make_engine
+from assistant_api.db import ChatSession, Feedback, Interaction, Repository, hash_session, make_engine
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -103,14 +104,43 @@ def test_migrated_schema_matches_repository_models(tmp_path):
         engine.dispose()
 
 
-def test_seed_generates_synthetic_data(tmp_path):
+@pytest.mark.parametrize("schema_source", ["orm", "migrations"])
+def test_seed_generates_synthetic_data(tmp_path, schema_source):
     path = tmp_path / "seed.db"
+    if schema_source == "migrations":
+        migration = run_script(ROOT / "scripts/migrate.py", path)
+        assert migration.returncode == 0, migration.stdout + migration.stderr
     result = run_script(ROOT / "scripts/seed.py", path, 300)
     assert result.returncode == 0, result.stdout + result.stderr
+    assert result.stdout.strip() == f"seeded 300 interactions into {path}"
     with sqlite3.connect(path) as db:
         assert db.execute("SELECT COUNT(*) FROM interaction").fetchone()[0] == 300
+        assert db.execute("SELECT COUNT(DISTINCT request_id) FROM interaction").fetchone()[0] == 300
         assert db.execute("SELECT COUNT(*) FROM feedback").fetchone()[0] > 0
-        assert db.execute("SELECT COUNT(*) FROM chat_session WHERE id LIKE 'student-%'").fetchone()[0] == 0
+        session_ids = {row[0] for row in db.execute("SELECT id FROM chat_session")}
+        synthetic_hashes = {hash_session(f"student-{i}", "seed-salt") for i in range(1, 61)}
+        assert session_ids and session_ids <= synthetic_hashes
+        assert db.execute("PRAGMA foreign_key_check").fetchall() == []
+        assert db.execute("SELECT COUNT(*) FROM feedback WHERE rating NOT IN (-1, 0, 1)").fetchone()[0] == 0
+        assert db.execute("SELECT COUNT(*) FROM feedback WHERE comment IS NOT NULL").fetchone()[0] == 0
+        columns = {row[1] for row in db.execute("PRAGMA table_info(interaction)")}
+        assert not columns & {"message", "raw_message", "raw_session", "student_name", "phone"}
+        if schema_source == "migrations":
+            assert db.execute("SELECT COUNT(*) FROM schema_version").fetchone()[0] == 2
+            assert db.execute("SELECT COUNT(*) FROM faq").fetchone()[0] == 0
+
+    # Reopen through SQLModel without create_all: the seeded schema must be usable
+    # by the same models and relationships as the application repository.
+    engine = make_engine(f"sqlite:///{path.as_posix()}")
+    try:
+        with Session(engine) as db:
+            assert len(db.exec(select(Interaction)).all()) == 300
+            for feedback in db.exec(select(Feedback)).all():
+                assert feedback.interaction.request_id == feedback.request_id
+                assert feedback.interaction.session.id in session_ids
+        assert sum(row["requests"] for row in Repository(engine, "seed-salt").intent_stats()) == 300
+    finally:
+        engine.dispose()
 
 
 def checker_fixture(tmp_path):
