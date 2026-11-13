@@ -47,6 +47,18 @@ def test_d1_commits_and_preserves_input(tmp_path):
             assert reader.execute("SELECT COUNT(*) FROM courses").fetchone()[0] == 5
 
 
+def test_d1_stores_fields_and_returns_unique_ids(con):
+    first_id = repo.add_student(con, "Minh", 1, "CS")
+    second_id = repo.add_student(con, "Lan", 3, "SE")
+    assert isinstance(first_id, int)
+    assert isinstance(second_id, int)
+    assert first_id != second_id
+    assert con.execute(
+        "SELECT id, name, year, program FROM students WHERE id IN (?, ?) ORDER BY id",
+        (first_id, second_id),
+    ).fetchall() == [(first_id, "Minh", 1, "CS"), (second_id, "Lan", 3, "SE")]
+
+
 def test_d2_average_grade(con):
     assert repo.average_grade(con, "CSC10004") == 5.25
     assert repo.average_grade(con, "XYZ") is None
