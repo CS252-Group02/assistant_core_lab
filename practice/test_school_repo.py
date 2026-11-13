@@ -70,6 +70,24 @@ def test_d1_preserves_unicode_and_quotes(con, name, program):
     ).fetchone() == (name, 2, program)
 
 
+def test_d1_persists_after_writer_closes(tmp_path):
+    path = tmp_path / "school.db"
+    writer = sqlite3.connect(path)
+    try:
+        writer.executescript(SQL)
+        new_id = repo.add_student(writer, "Minh", 1, "CS")
+    finally:
+        writer.close()
+
+    reader = sqlite3.connect(path)
+    try:
+        assert reader.execute(
+            "SELECT name, year, program FROM students WHERE id = ?", (new_id,)
+        ).fetchone() == ("Minh", 1, "CS")
+    finally:
+        reader.close()
+
+
 def test_d2_average_grade(con):
     assert repo.average_grade(con, "CSC10004") == 5.25
     assert repo.average_grade(con, "XYZ") is None
