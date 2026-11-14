@@ -1,16 +1,18 @@
-"""Persistence with SQLModel (SQLAlchemy + Pydantic) — Lab 5 STARTER.
+"""Persistence with SQLModel (SQLAlchemy + Pydantic) — Lab 5.
 
-The models and `record_interaction` are given as worked examples. Complete TODO R1 and R2.
+Models and interaction recording follow the Lab 5 starter; R1 and R2 are implemented.
 
 Privacy by design: we store *metadata* about interactions (intent, latency, topic, outcome),
 a salted hash of the session id, and feedback. We do NOT store the raw user message.
 """
 
+from __future__ import annotations
+
 import hashlib
 from datetime import datetime, timezone
-from typing import Optional
 
 from sqlalchemy import case, func
+from sqlalchemy.orm import relationship
 from sqlalchemy.pool import StaticPool
 from sqlmodel import Field, Relationship, Session, SQLModel, create_engine, select
 
@@ -24,7 +26,9 @@ class ChatSession(SQLModel, table=True):
     id: str = Field(primary_key=True, max_length=16)  # salted hash, never the raw id
     channel: str = Field(default="web", max_length=16)
     created_at: datetime = Field(default_factory=utcnow)
-    interactions: list["Interaction"] = Relationship(back_populates="session")
+    interactions: list[Interaction] = Relationship(
+        sa_relationship=relationship("Interaction", back_populates="session")
+    )
 
 
 class Interaction(SQLModel, table=True):
@@ -37,8 +41,10 @@ class Interaction(SQLModel, table=True):
     degraded: bool = False
     latency_ms: float = 0.0
     created_at: datetime = Field(default_factory=utcnow, index=True)
-    session: Optional["ChatSession"] = Relationship(back_populates="interactions")
-    feedback: list["Feedback"] = Relationship(back_populates="interaction")
+    session: ChatSession | None = Relationship(
+        sa_relationship=relationship("ChatSession", back_populates="interactions")
+    )
+    feedback: list[Feedback] = Relationship(sa_relationship=relationship("Feedback", back_populates="interaction"))
 
 
 class Feedback(SQLModel, table=True):
@@ -47,7 +53,9 @@ class Feedback(SQLModel, table=True):
     rating: int  # -1, 0, 1 (validated at the API)
     comment: str | None = Field(default=None, max_length=500)
     created_at: datetime = Field(default_factory=utcnow)
-    interaction: Optional["Interaction"] = Relationship(back_populates="feedback")
+    interaction: Interaction | None = Relationship(
+        sa_relationship=relationship("Interaction", back_populates="feedback")
+    )
 
 
 def make_engine(url: str):  # noqa: ANN201
