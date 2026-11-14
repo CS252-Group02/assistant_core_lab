@@ -1,5 +1,8 @@
 # Setup verification
 
+This is the historical setup baseline. See [TV6 verification](tv6-verification.md)
+for the later database configuration, R1, migration and seed results.
+
 Verified on November 13, 2026, using Python 3.11 on Windows.
 
 | Check | Result |
