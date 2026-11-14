@@ -20,7 +20,9 @@ class Settings(BaseModel):
     retake_multiplier: float = 1.5
     max_credits: int = 30
     log_level: str = "INFO"
-    # TODO Lab 5: add database_url and session_salt, then load their environment variables.
+    database_url: str = "sqlite:///assistant.db"
+    # Development placeholder only; keep a stable private salt in the local environment.
+    session_salt: str = Field(default="dev-only-change-me", repr=False)
 
     # Lab 4 — API
     api_admin_key: str | None = Field(default=None, repr=False)
@@ -44,6 +46,8 @@ def load_settings(env_file: str | None = ".env") -> Settings:
         retake_multiplier=float(os.getenv("RETAKE_MULTIPLIER", "1.5")),
         max_credits=int(os.getenv("MAX_CREDITS", "30")),
         log_level=os.getenv("LOG_LEVEL", "INFO"),
+        database_url=os.getenv("DATABASE_URL", "sqlite:///assistant.db"),
+        session_salt=os.getenv("SESSION_SALT", "dev-only-change-me"),
         api_admin_key=os.getenv("API_ADMIN_KEY") or None,
         weather_url=os.getenv("WEATHER_URL", "https://api.open-meteo.com/v1/forecast"),
         weather_timeout_s=float(os.getenv("WEATHER_TIMEOUT_S", "3")),

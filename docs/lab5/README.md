@@ -13,12 +13,15 @@ on the sibling reference folder.
 - `practice/` is copied from the instructor: school schema, expected answers,
   checker, database builder, unfinished D1-D3, and five tests. Q1-Q15 stay blank.
 - `src/assistant_api/db.py` contains the supplied models, hashing, engine helper,
-  `record_interaction`, and intent aggregation. R1 and R2 remain unfinished.
+  `record_interaction`, and intent aggregation. R1 feedback saving is implemented;
+  R2 feedback listing remains unfinished.
 - The numbered migrations and migrate/seed scripts are supplied examples, not
   missing exercises. Their behavior and compatibility are covered by tests.
 - The current API retains Lab 4 behavior. `create_app(..., repo=None)` reserves
   the injection interface but does not use it yet.
-- The DB environment variables are in `.env.example`; their settings are unfinished. Baseline duplicate settings and import issues have been cleaned up.
+- The DB environment variables in `.env.example` are loaded into Settings.
+  Environment variables take precedence over `.env`; the session salt is hidden
+  from repr. Replace the development placeholder with a stable private local salt.
 - `tests/lab5/` supplies offline acceptance tests. Do not weaken tests to make
   unfinished work appear complete.
 - `sql/my_queries.sql` and the design worksheet are unfinished. Keep the query
@@ -92,5 +95,8 @@ The argparse CLI accepts the flag before or after a custom answers path.
 Input/setup errors exit 1; argument usage errors exit 2. No SQL
 answers should be hardcoded into the checker.
 
-Some seed/migration tests also depend on R1. This is an implementation dependency. The supplied scripts already create their schema;
-Ensure migrations and ORM-created databases both work with the repository.
+R1 now enables the migration and seed integration checks. Both migration-created
+and ORM-created databases work with the repository. See
+[TV6 verification](tv6-verification.md) for the measured results and reproduction
+commands. The scripts retain their positional database-path arguments; seeding
+uses a fixed synthetic salt and appends data on every run.

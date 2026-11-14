@@ -85,8 +85,10 @@ python -m uvicorn assistant_api.main:create_app --factory --reload
 ```
 
 Open `http://127.0.0.1:8000/docs`. During setup, the API still uses the Lab 4
-in-memory feedback list. Repository integration remains unfinished. `DATABASE_URL`
-and `SESSION_SALT` are documented but are not wired into configuration yet.
+in-memory feedback list. Repository integration remains unfinished. Configuration
+now loads `DATABASE_URL` and `SESSION_SALT`; API repository wiring is a separate
+team task. See [TV6 database verification](docs/lab5/tv6-verification.md) for
+environment setup, repeatable migrations and the 300-interaction synthetic seed.
 
 See [Lab 5 technical notes](docs/lab5/README.md) for supplied examples, test commands,
 and the interfaces expected by the acceptance tests.
