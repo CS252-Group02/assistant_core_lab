@@ -23,3 +23,16 @@ required.
 | `can I register my thesis with 118 credits` | `H26-5.3` | 2.5897 |
 | `policy on retaking a course` | `H26-4.2` | 3.2918 |
 | `absence from final exam due to medical reasons` | `H26-7.2` | 9.1679 |
+
+The first search also ranks `H26-5.4` (Late thesis registration) second, at
+1.4071. That is a useful surprise: the query says the student has only 118
+credits, yet the lexical ranker matches the shared “thesis registration” title.
+BM25 does not reason about whether 118 meets the 120-credit requirement, so
+the top match still needs to be checked against the rule text.
+
+## Limits
+
+These results describe a five-rule handbook experiment, not the missing Lab 6
+KB corpus or another member's RAG implementation. The task image's three
+original questions were not present in this checkout, so these searches reuse
+the three rule-search examples in `tests/test_knowledge.py`.
