@@ -13,6 +13,11 @@ HANDBOOK_PATH = ROOT / "data" / "handbook.json"
 TOKEN_RE = re.compile(r"[a-z0-9]+")
 K1 = 1.5
 B = 0.75
+QUERIES = (
+    "can I register my thesis with 118 credits",
+    "policy on retaking a course",
+    "absence from final exam due to medical reasons",
+)
 
 
 @dataclass(frozen=True)
@@ -62,3 +67,17 @@ def bm25_scores(chunks: list[Chunk], query: str) -> list[tuple[Chunk, float]]:
             score += inverse_document_frequency * frequency * (K1 + 1) / normalization
         results.append((chunk, score))
     return sorted(results, key=lambda row: (-row[1], row[0].id))
+
+
+def main() -> None:
+    chunks = load_chunks()
+    for query in QUERIES:
+        print(f"Query: {query}")
+        for rank, (chunk, score) in enumerate(bm25_scores(chunks, query), start=1):
+            if score <= 0:
+                break
+            print(f"  {rank}. {chunk.id} | {score:.4f} | {chunk.title}")
+
+
+if __name__ == "__main__":
+    main()
