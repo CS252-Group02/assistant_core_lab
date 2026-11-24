@@ -1,4 +1,7 @@
+import json
+
 import httpx
+import pytest
 
 from ui.api_client import AssistantClient, ChatResult
 from ui.logic import format_sources, status_note, validate_input
@@ -69,3 +72,48 @@ def test_status_note_escalation_takes_priority_over_degraded():
     assert note == status_note(ChatResult(ok=True, escalate=True))
     assert note is not None and "Training Office" in note
     assert note != status_note(ChatResult(ok=True, degraded=True))
+
+
+def test_ask_timeout():
+    def timeout(request):
+        raise httpx.ReadTimeout("timed out", request=request)
+
+    result = client_with(timeout).ask("where is the library", "s1")
+    assert not result.ok
+    assert result.error == "The assistant is taking too long. Please try again."
+
+
+def test_ask_rate_limited():
+    result = client_with(lambda request: httpx.Response(429)).ask("where is the library", "s1")
+    assert not result.ok
+    assert result.error == "Too many questions in a short time. Please wait a minute."
+
+
+def test_feedback_negative_rating_payload():
+    requests = []
+
+    def handler(request):
+        requests.append(request)
+        return httpx.Response(201, json={})
+
+    assert client_with(handler).send_feedback("abc123", -1) is True
+    assert len(requests) == 1
+    assert requests[0].method == "POST"
+    assert requests[0].url.path == "/v1/feedback"
+    assert json.loads(requests[0].content) == {
+        "request_id": "abc123", "rating": -1, "comment": None,
+    }
+
+
+@pytest.mark.parametrize("status_code", [400, 429, 500])
+def test_feedback_http_failure(status_code):
+    client = client_with(lambda request: httpx.Response(status_code))
+    assert client.send_feedback("abc123", -1) is False
+
+
+@pytest.mark.parametrize("error_type", [httpx.ConnectError, httpx.ReadTimeout])
+def test_feedback_transport_failure(error_type):
+    def handler(request):
+        raise error_type("feedback unavailable", request=request)
+
+    assert client_with(handler).send_feedback("abc123", -1) is False
