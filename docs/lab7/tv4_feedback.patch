@@ -1,0 +1,36 @@
+diff --git a/ui/app.py b/ui/app.py
+--- a/ui/app.py
++++ b/ui/app.py
+@@ -46,13 +46,25 @@
+             st.info(m["note"])
+         rid = m.get("request_id")
+         if rid and rid not in st.session_state.rated:
+-            c1, c2, _ = st.columns([1, 1, 6])
+-            if c1.button("👍", key=f"up{i}"):
+-                client.send_feedback(rid, 1)
+-                st.session_state.rated.add(rid)
+-                st.toast("Thanks for your feedback!")
+-            # TODO F1 (4 lines): add a 👎 button in c2 with key=f"down{i}" that sends rating -1,
+-            #   remembers rid in st.session_state.rated and shows st.toast("Thanks — we will look at this answer.")
++            feedback = st.empty()
++            with feedback.container():
++                c1, c2, _ = st.columns([1, 1, 6])
++                rating = None
++                if c1.button("👍", key=f"up{i}", help="Mark this answer as helpful"):
++                    rating = 1
++                if c2.button("👎", key=f"down{i}", help="Report a problem with this answer"):
++                    rating = -1
++                if rating is not None:
++                    if client.send_feedback(rid, rating):
++                        st.session_state.rated.add(rid)
++                        feedback.empty()
++                        st.toast(
++                            "Thanks for your feedback!"
++                            if rating == 1
++                            else "Thanks — we will look at this answer."
++                        )
++                    else:
++                        st.error("Your feedback was not saved. Please try again.")
+
+ # ---- new question ----------------------------------------------------------------
+ question = st.chat_input("Ask about fees, offices or the handbook…") or st.session_state.pop("pending", None)
