@@ -1,0 +1,10 @@
+{
+  "supplemental_capture": "phone sidebar after 1000ms animation settle; desktop outage screenshots after 1000ms render settle",
+  "database": "/tmp/lab07-tv7-screenshot-check.db",
+  "feedback_count": 0,
+  "interactions": [
+    [
+      "3597f27a0cce"
+    ]
+  ]
+}

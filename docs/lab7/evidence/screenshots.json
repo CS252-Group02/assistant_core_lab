@@ -1,0 +1,105 @@
+[
+  {
+    "file": "baseline-backend-down.png",
+    "sha256": "446393db40f0c992aac348e43c3e2a8d10d3700880052f02bc2a839e464fe4b8",
+    "width": 1280,
+    "height": 1000,
+    "captured_at_utc": "2026-11-28T00:03:20.702506+00:00",
+    "type": "preliminary baseline",
+    "environment": "team-environment.txt",
+    "human_participant": false,
+    "capture_note": "Supplemental real-browser capture after one-second rendering/animation settle; see supplemental-capture.json."
+  },
+  {
+    "file": "baseline-card.png",
+    "sha256": "4fb69b418cc728d6ed585373413b4107e8a95ba10e9678ed3dca041ce8b6b433",
+    "width": 1280,
+    "height": 1000,
+    "captured_at_utc": "2026-11-27T23:58:49.872541+00:00",
+    "type": "preliminary baseline",
+    "environment": "team-environment.txt",
+    "human_participant": false
+  },
+  {
+    "file": "baseline-desktop-start.png",
+    "sha256": "26d73f5694abca9f4d4df6917761fa6b4549ca5421d2cb15e22a88f8b2a12e8d",
+    "width": 1280,
+    "height": 1000,
+    "captured_at_utc": "2026-11-27T23:58:48.187037+00:00",
+    "type": "preliminary baseline",
+    "environment": "team-environment.txt",
+    "human_participant": false
+  },
+  {
+    "file": "baseline-feedback-failure.png",
+    "sha256": "aeadcdfac33c05a369f28fcf9d0b2d1212d1a9d40b6ec48730ed54c257898ded",
+    "width": 1280,
+    "height": 1000,
+    "captured_at_utc": "2026-11-28T00:03:19.020372+00:00",
+    "type": "preliminary baseline",
+    "environment": "team-environment.txt",
+    "human_participant": false,
+    "capture_note": "Supplemental real-browser capture after one-second rendering/animation settle; see supplemental-capture.json."
+  },
+  {
+    "file": "baseline-phone-card.png",
+    "sha256": "36d11860a7801ea6fd70bf601ecbf72034cade38ba16c489b1fddba6501983b0",
+    "width": 375,
+    "height": 812,
+    "captured_at_utc": "2026-11-27T23:58:58.612260+00:00",
+    "type": "preliminary baseline",
+    "environment": "team-environment.txt",
+    "human_participant": false
+  },
+  {
+    "file": "baseline-phone-sidebar.png",
+    "sha256": "fa159b80b72f8e08d97d219e8c50253e4b866d7538300c212c458165daf4f486",
+    "width": 375,
+    "height": 812,
+    "captured_at_utc": "2026-11-28T00:03:14.026147+00:00",
+    "type": "preliminary baseline",
+    "environment": "team-environment.txt",
+    "human_participant": false,
+    "capture_note": "Supplemental real-browser capture after one-second rendering/animation settle; see supplemental-capture.json."
+  },
+  {
+    "file": "baseline-phone-start.png",
+    "sha256": "705ef7da5948aadfb5d0f759e8df0473146419061f37c827b33398367a21a3d4",
+    "width": 375,
+    "height": 812,
+    "captured_at_utc": "2026-11-27T23:58:57.490762+00:00",
+    "type": "preliminary baseline",
+    "environment": "team-environment.txt",
+    "human_participant": false
+  },
+  {
+    "file": "baseline-thesis.png",
+    "sha256": "ce2114997d22cccf6e7e1c8fceaf11d5ae19a49093a9d504a0491ef877287d66",
+    "width": 1280,
+    "height": 1000,
+    "captured_at_utc": "2026-11-27T23:58:48.992806+00:00",
+    "type": "preliminary baseline",
+    "environment": "team-environment.txt",
+    "human_participant": false
+  },
+  {
+    "file": "fault-provider-degraded.png",
+    "sha256": "8c4615ea57dbb4c013d8c0d651bbe46c79d9c28c91c2a82578c919e8ebfe2eba",
+    "width": 1280,
+    "height": 1000,
+    "captured_at_utc": "2026-11-27T23:59:03.662287+00:00",
+    "type": "injected provider failure",
+    "environment": "team-environment.txt",
+    "human_participant": false
+  },
+  {
+    "file": "fault-provider-loading.png",
+    "sha256": "e1b74fdd288258cb303a31e38d78611e8ce66faaa89bce7494c097dbd6682809",
+    "width": 1280,
+    "height": 1000,
+    "captured_at_utc": "2026-11-27T23:59:01.692646+00:00",
+    "type": "injected provider failure",
+    "environment": "team-environment.txt",
+    "human_participant": false
+  }
+]

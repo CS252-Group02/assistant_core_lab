@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Can I register my thesis with 118 credits?",
+    "status": 200,
+    "body": {
+      "answer": "5.3 Thesis registration: Students may register a thesis when they have at least 120 accumulated credits and a cumulative GPA of at least 2.0. Registration opens in week 1 and closes in week 3 of the semester.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#5.3",
+          "title": "5.3 Thesis registration"
+        }
+      ],
+      "degraded": false,
+      "escalate": false,
+      "path": "retrieval",
+      "confidence": null,
+      "request_id": "222d05243e4f"
+    },
+    "required_facts_present": true
+  },
+  {
+    "question": "I lost my student card",
+    "status": 200,
+    "body": {
+      "answer": "3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102). The replacement fee is 50,000 VND and the new card is ready in 3 working days.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#3",
+          "title": "3 Student card replacement"
+        }
+      ],
+      "degraded": false,
+      "escalate": false,
+      "path": "retrieval",
+      "confidence": null,
+      "request_id": "a74559ddf65e"
+    },
+    "required_facts_present": true
+  }
+]

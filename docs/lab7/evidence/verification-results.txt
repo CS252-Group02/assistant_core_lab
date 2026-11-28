@@ -1,0 +1,84 @@
+Course pins — 35 UI tests
+Command: python -m pytest -q tests/test_ui.py tests/test_ui_official.py tests/test_ui_sources.py tests/test_ui_feedback.py -p no:cacheprovider --tb=short
+...................................                                      [100%]
+35 passed in 0.92s
+
+Course pins — untouched main
+Command: python -m pytest -q -p no:cacheprovider --tb=short
+.....................................F.................................. [ 47%]
+........................................................................ [ 94%]
+.........                                                                [100%]
+=================================== FAILURES ===================================
+_______________ test_migrations_are_repeatable_and_preserve_data _______________
+tests/lab5/test_scripts.py:63: in test_migrations_are_repeatable_and_preserve_data
+    assert len(saved.feedback) == 1
+E   TypeError: object of type 'Feedback' has no len()
+=============================== warnings summary ===============================
+../lab07-venv/lib/python3.11/site-packages/starlette/testclient.py:40
+  /tmp/lab07-venv/lib/python3.11/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/lab5/test_scripts.py::test_migrations_are_repeatable_and_preserve_data
+1 failed, 152 passed, 1 warning in 5.63s
+
+Course pins — temporary integration
+Command: python -m pytest -q -p no:cacheprovider --tb=short
+.....................................F.................................. [ 38%]
+........................................................................ [ 76%]
+............................................                             [100%]
+=================================== FAILURES ===================================
+_______________ test_migrations_are_repeatable_and_preserve_data _______________
+tests/lab5/test_scripts.py:63: in test_migrations_are_repeatable_and_preserve_data
+    assert len(saved.feedback) == 1
+E   TypeError: object of type 'Feedback' has no len()
+=============================== warnings summary ===============================
+../lab07-venv/lib/python3.11/site-packages/starlette/testclient.py:40
+  /tmp/lab07-venv/lib/python3.11/site-packages/starlette/testclient.py:40: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/lab5/test_scripts.py::test_migrations_are_repeatable_and_preserve_data
+1 failed, 187 passed, 1 warning in 6.48s
+
+Team pins — untouched main
+Command: python -m pytest -q -p no:cacheprovider --tb=short
+.....................................F.................................. [ 47%]
+........................................................................ [ 94%]
+.........                                                                [100%]
+=================================== FAILURES ===================================
+_______________ test_migrations_are_repeatable_and_preserve_data _______________
+tests/lab5/test_scripts.py:63: in test_migrations_are_repeatable_and_preserve_data
+    assert len(saved.feedback) == 1
+E   TypeError: object of type 'Feedback' has no len()
+=============================== warnings summary ===============================
+../lab07-venv/lib/python3.11/site-packages/starlette/testclient.py:37
+  /tmp/lab07-venv/lib/python3.11/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/lab5/test_scripts.py::test_migrations_are_repeatable_and_preserve_data
+1 failed, 152 passed, 1 warning in 6.01s
+
+Team pins — temporary integration
+Command: python -m pytest -q -p no:cacheprovider --tb=short
+.....................................F.................................. [ 38%]
+........................................................................ [ 76%]
+............................................                             [100%]
+=================================== FAILURES ===================================
+_______________ test_migrations_are_repeatable_and_preserve_data _______________
+tests/lab5/test_scripts.py:63: in test_migrations_are_repeatable_and_preserve_data
+    assert len(saved.feedback) == 1
+E   TypeError: object of type 'Feedback' has no len()
+=============================== warnings summary ===============================
+../lab07-venv/lib/python3.11/site-packages/starlette/testclient.py:37
+  /tmp/lab07-venv/lib/python3.11/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/lab5/test_scripts.py::test_migrations_are_repeatable_and_preserve_data
+1 failed, 187 passed, 1 warning in 6.76s

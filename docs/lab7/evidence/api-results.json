@@ -1,0 +1,103 @@
+[
+  {
+    "check": "health",
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "version": "1.0.0"
+    }
+  },
+  {
+    "question": "Can I register my thesis with 118 credits?",
+    "status": 200,
+    "body": {
+      "answer": "According to 5.3 Thesis registration: Students may register a thesis when they have at least 120 accumulated credits and a cumulative GPA of at least 2.0.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#5.3",
+          "title": "5.3 Thesis registration"
+        }
+      ],
+      "degraded": false,
+      "escalate": false,
+      "path": "llm",
+      "confidence": 0.7,
+      "request_id": "b12708f429ce"
+    }
+  },
+  {
+    "check": "feedback",
+    "status": 201,
+    "rating": 1
+  },
+  {
+    "question": "I lost my student card",
+    "status": 200,
+    "body": {
+      "answer": "According to 3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102).",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#3",
+          "title": "3 Student card replacement"
+        }
+      ],
+      "degraded": false,
+      "escalate": false,
+      "path": "llm",
+      "confidence": 0.7,
+      "request_id": "5c81f9e8b86a"
+    }
+  },
+  {
+    "check": "feedback",
+    "status": 201,
+    "rating": -1
+  },
+  {
+    "check": "failing stub",
+    "question": "I lost my student card",
+    "status": 200,
+    "body": {
+      "answer": "3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102). The replacement fee is 50,000 VND and the new card is ready in 3 working days.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#3",
+          "title": "3 Student card replacement"
+        }
+      ],
+      "degraded": true,
+      "escalate": false,
+      "path": "retrieval",
+      "confidence": null,
+      "request_id": "b0313e4add75"
+    }
+  },
+  {
+    "check": "failing stub",
+    "question": "who will win the football match",
+    "status": 200,
+    "body": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "escalate": true,
+      "path": "abstain",
+      "confidence": 0.0,
+      "request_id": "8fdd93368eeb"
+    }
+  },
+  {
+    "check": "api input validation",
+    "length": 0,
+    "status": 422
+  },
+  {
+    "check": "api input validation",
+    "length": 2001,
+    "status": 422
+  }
+]
