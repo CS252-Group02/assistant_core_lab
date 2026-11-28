@@ -1,7 +1,7 @@
 # TV7 — ten-minute external user study
 
 Status: **prepared; no external participant has been observed**. Automated and
- developer inspection results belong in [integration verification](integration_verification.md).
+developer inspection results belong in [integration verification](integration_verification.md).
 Use the [official observation worksheet](../../worksheets/user_test_observations.md)
 for the real study; it is intentionally blank and copied verbatim from instructor
 commit `397639e11ac3bb47516d5de8211ccbfb3955794a`.
@@ -12,7 +12,8 @@ commit `397639e11ac3bb47516d5de8211ccbfb3955794a`.
    on the worksheet, after obtaining their consent to notes and any screenshots.
    Use synthetic questions; do not enter student IDs or private academic records.
 2. Follow the [integration runbook](integration_verification.md) to start the API
-   and UI with the stub provider and a disposable database. Verify `/health`,
+   and UI with the agreed offline provider and a disposable database. The existing
+   template mode returns the complete source sections; record the choice. Verify `/health`,
    source captions, and voting. Record the exact integrated commits, provider,
    viewport, browser, date and checklist result with the session evidence.
 3. Have TV6 verify its usability checklist on this build. Use a fresh Streamlit

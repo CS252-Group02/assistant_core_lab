@@ -45,7 +45,7 @@ at line 63: `len(saved.feedback)` raises `TypeError: object of type 'Feedback'
 has no len()`. It reproduces on untouched main, and earlier Lab 6 evidence also
 records it. Likely cause: SQLAlchemy infers scalar cardinality for the explicit
 `Interaction.feedback` relationship despite its list annotation. Hand off to
-the Lab 5 model/repository owner (TV2/TV4, with TV6 migration-test coordination).
+the Lab 5 model/repository owner (TV4, with TV6 migration-test coordination).
 Do not weaken the test or silently classify the full suite as passing.
 
 Sandbox TestClient attempts timed out at 20 seconds, exit 124; approved execution
@@ -73,7 +73,7 @@ For integrated checks, use the runbook's pinned assembly.
 | High | TV6's branch cannot collect; current main still fails L1. The report correctly declares verification pending. | TV1/TV2/TV5 integrate the app, formatter, root import setup and dependencies through normal reviews; TV6 reruns its tests on that exact integrated commit. Passing this scratch assembly does not complete PR #44 acceptance. |
 | Medium | Client tests cannot verify rendered captions, history, session state or one-vote behavior. | TV6 incorporate/run TV4's existing `tests/test_ui_feedback.py` and TV2's `tests/test_ui_sources.py`; retain the browser scenarios. No need to rewrite teammate tests. |
 | Medium | No HTTP-200 malformed-body coverage. Smoke probes against the real client raise `JSONDecodeError` for `not-json` and `KeyError: 'intent'` for `{"answer":"partial"}`. This can interrupt the UI. | TV5 decide/implement friendly invalid-response handling; TV6 add malformed JSON/missing-required-field cases after coordination. These are injected client-unit probes, not observed backend failures. |
-| Medium | Source-ID assertions alone cannot establish study-answer completeness. The stub omits the card fee/time, and a compound question returns only the card answer. | RAG/stub owners (TV2/TV4; TV1 coordinates integration) agree acceptance for the chosen study provider. TV6 assert substantive facts or document these limitations; TV7 retains the full observer answer key. |
+| Medium | Source-ID assertions alone cannot establish study-answer completeness. The stub omits the card fee/time, and a compound question returns only the card answer. | RAG/stub owners (TV2/TV4; TV1 coordinates integration) agree acceptance for the chosen study provider. TV6 assert substantive facts or document these limitations; existing template mode passes the full-section API checks. TV7 retains the full observer answer key. |
 | Low | `healthy()`, chat request method/body/session ID, positive-feedback payload, and the 2,000-character boundary are not directly asserted in TV6's suite. Successful parsing does not check all response metadata. | TV6 add focused cases for health 200/500/timeout, chat payload, source/status/path preservation, positive vote payload, and 2,000/2,001 boundaries if not covered elsewhere. Avoid duplicate tests. |
 | Human-dependent | TV6's browser checklist, two-minute hallway session and full D.4/E sign-off are still pending in its own report. | TV6 review/repeat the evidence below on the final app, cross-check the course handout, conduct its own hallway session, and update only observed checklist items. TV7's separate ten-minute study is also pending. |
 

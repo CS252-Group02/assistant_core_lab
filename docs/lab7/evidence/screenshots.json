@@ -1,13 +1,14 @@
 [
   {
     "file": "baseline-backend-down.png",
-    "sha256": "91ab2d777dc01972247fa145cdd66e5dee25885db9d106e5aaaac0b8ab5c5456",
+    "sha256": "446393db40f0c992aac348e43c3e2a8d10d3700880052f02bc2a839e464fe4b8",
     "width": 1280,
     "height": 1000,
-    "captured_at_utc": "2026-11-27T23:58:54.476608+00:00",
+    "captured_at_utc": "2026-11-28T00:03:20.702506+00:00",
     "type": "preliminary baseline",
     "environment": "team-environment.txt",
-    "human_participant": false
+    "human_participant": false,
+    "capture_note": "Supplemental real-browser capture after one-second rendering/animation settle; see supplemental-capture.json."
   },
   {
     "file": "baseline-card.png",
@@ -31,13 +32,14 @@
   },
   {
     "file": "baseline-feedback-failure.png",
-    "sha256": "d292731e52f6a9e1e872aeadf299c8ef44ec496591a7044d6ae135851f4e548a",
+    "sha256": "aeadcdfac33c05a369f28fcf9d0b2d1212d1a9d40b6ec48730ed54c257898ded",
     "width": 1280,
     "height": 1000,
-    "captured_at_utc": "2026-11-27T23:58:53.669790+00:00",
+    "captured_at_utc": "2026-11-28T00:03:19.020372+00:00",
     "type": "preliminary baseline",
     "environment": "team-environment.txt",
-    "human_participant": false
+    "human_participant": false,
+    "capture_note": "Supplemental real-browser capture after one-second rendering/animation settle; see supplemental-capture.json."
   },
   {
     "file": "baseline-phone-card.png",
@@ -51,13 +53,14 @@
   },
   {
     "file": "baseline-phone-sidebar.png",
-    "sha256": "b843742d47dbb10fbef2d8eda36ae12b6e19d5bf38113637d4b0b1ad427027b5",
+    "sha256": "fa159b80b72f8e08d97d219e8c50253e4b866d7538300c212c458165daf4f486",
     "width": 375,
     "height": 812,
-    "captured_at_utc": "2026-11-27T23:58:57.731454+00:00",
+    "captured_at_utc": "2026-11-28T00:03:14.026147+00:00",
     "type": "preliminary baseline",
     "environment": "team-environment.txt",
-    "human_participant": false
+    "human_participant": false,
+    "capture_note": "Supplemental real-browser capture after one-second rendering/animation settle; see supplemental-capture.json."
   },
   {
     "file": "baseline-phone-start.png",

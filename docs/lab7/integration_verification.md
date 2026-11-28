@@ -110,7 +110,9 @@ Data/KB paths remain the main defaults (`data`, `data/kb`, BM25, min score 2.0,
 `answer_v1`). No LLM credentials or weather calls were used. Salt above is a
 public disposable-test value. For repeat runs choose a new database filename;
 do not reuse valuable data. Tests used separate baseline/integration databases,
-pytest temporary databases, and `/tmp/lab07-tv7-http.db` for HTTP checks.
+pytest temporary databases, and `/tmp/lab07-tv7-http.db` for HTTP checks. Supplemental captures used
+`/tmp/lab07-tv7-screenshot-check.db`; template checks used
+`/tmp/lab07-tv7-template.db`.
 Normal UI chat/rated state persists across Streamlit reruns in the same session;
 page reload/new-browser persistence is not promised or asserted.
 
@@ -176,7 +178,10 @@ sets `ASSISTANT_API_URL=http://127.0.0.1:8001`. No API response was fabricated.
 Scratch automation: `/tmp/lab07-verify-browser.py`, `/tmp/lab07-http-verify.py`,
 `/tmp/lab07-preflight.py`, fault factory and runtime exports remain outside the
 TV7 branch. All test servers/browser processes launched by the harness were
-stopped after capture. Reproduce the browser checks using the table above and
+stopped after capture. `/tmp/lab07-phone-capture.py` recaptured the phone/sidebar
+and two outage images after a one-second render/animation settle; its
+[supplemental record](evidence/supplemental-capture.json) confirms zero saved
+feedback during the outage. Reproduce the browser checks using the table above and
 the same actual app/settings; these are preliminary checks, not a participant
 before/after experiment.
 
@@ -189,6 +194,18 @@ succeeded. An initial browser run captured the questions/votes but timed out on
 an incorrect `Main menu` accessible-name selector; it was corrected to the actual
 Streamlit menu test ID and the complete flow rerun. These are environment/harness
 failures, not application acceptance passes.
+
+## Existing complete-section study option
+
+The team's existing `LLM_PROVIDER=template` mode uses retrieval without a model.
+A separate actual API check returned `path=retrieval`, `degraded=false`, correct
+IDs/titles and both complete source sections: the thesis credit/GPA rule, and
+Student Affairs I.102 with 50,000 VND / three working days. See
+[template-provider results](evidence/template-study-results.json). This is a
+configuration option, not a production fix. It still quotes the thesis rule
+rather than explicitly comparing 118 with 120. Record the selected provider
+before the external session and capture a new study baseline. The screenshots
+above remain labelled as stub-browser evidence.
 
 ## Preliminary findings — no participant observations
 
