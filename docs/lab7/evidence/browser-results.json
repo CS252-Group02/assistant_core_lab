@@ -1,0 +1,242 @@
+[
+  {
+    "check": "health",
+    "api": {
+      "status": "ok",
+      "version": "1.0.0"
+    },
+    "ui": "ok"
+  },
+  {
+    "check": "browser",
+    "version": "155.0.8059.80"
+  },
+  {
+    "check": "first_screen",
+    "text": "RUNNING...\nStop\nDeploy\nTry an example\n\nCan I register my thesis with 118 credits?\n\nTuition for 18 credits and 2 retake\n\nWhere is the library?\n\nI lost my student card\n\nThis is an AI assistant. Check important decisions with the Training Office.\n\n🎓 FIT Study Assistant\n\nHi! I can answer questions about fees, offices and the student handbook. Try: “Can I register my thesis with 118 credits?”"
+  },
+  {
+    "check": "screenshot",
+    "file": "baseline-desktop-start.png",
+    "viewport": {
+      "width": 1280,
+      "height": 1000
+    }
+  },
+  {
+    "check": "thesis",
+    "text": "According to 5.3 Thesis registration: Students may register a thesis when they have at least 120 accumulated credits and a cumulative GPA of at least 2.0.\n\nSources: H26#5.3 — 5.3 Thesis registration\n\n👍\n\n👎"
+  },
+  {
+    "check": "screenshot",
+    "file": "baseline-thesis.png",
+    "viewport": {
+      "width": 1280,
+      "height": 1000
+    }
+  },
+  {
+    "check": "positive_feedback",
+    "rows": [
+      [
+        "bd6e297667a8",
+        1
+      ]
+    ]
+  },
+  {
+    "check": "card",
+    "text": "According to 3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102).\n\nSources: S26#3 — 3 Student card replacement\n\n👍\n\n👎"
+  },
+  {
+    "check": "screenshot",
+    "file": "baseline-card.png",
+    "viewport": {
+      "width": 1280,
+      "height": 1000
+    }
+  },
+  {
+    "check": "negative_feedback",
+    "rows": [
+      [
+        "bd6e297667a8",
+        1
+      ],
+      [
+        "43af144d463c",
+        -1
+      ]
+    ]
+  },
+  {
+    "check": "reruns",
+    "feedback_unchanged": true,
+    "chat_messages": 5,
+    "sessions": [
+      [
+        1
+      ]
+    ]
+  },
+  {
+    "check": "escalation",
+    "text": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.\n\nI could not find this in the official documents. A staff member can help: Training Office, room I.101.\n\n👍\n\n👎"
+  },
+  {
+    "check": "validation",
+    "whitespace": "friendly warning, no request/history addition",
+    "too_long": "friendly warning, no request/history addition"
+  },
+  {
+    "check": "feedback_failure",
+    "db_count_unchanged": true,
+    "buttons_remain": true
+  },
+  {
+    "check": "screenshot",
+    "file": "baseline-feedback-failure.png",
+    "viewport": {
+      "width": 1280,
+      "height": 1000
+    }
+  },
+  {
+    "check": "backend_down",
+    "text": "⚠️ Cannot reach the assistant. Is the backend running?"
+  },
+  {
+    "check": "screenshot",
+    "file": "baseline-backend-down.png",
+    "viewport": {
+      "width": 1280,
+      "height": 1000
+    }
+  },
+  {
+    "check": "feedback_retry",
+    "rows": [
+      [
+        "bd6e297667a8",
+        1
+      ],
+      [
+        "43af144d463c",
+        -1
+      ],
+      [
+        "aef2748046d5",
+        -1
+      ]
+    ]
+  },
+  {
+    "check": "screenshot",
+    "file": "baseline-phone-start.png",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    }
+  },
+  {
+    "check": "phone_sidebar",
+    "disclosure_reachable": true
+  },
+  {
+    "check": "screenshot",
+    "file": "baseline-phone-sidebar.png",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    }
+  },
+  {
+    "check": "phone_first_screen",
+    "text": "Deploy\nTry an example\n\nCan I register my thesis with 118 credits?\n\nTuition for 18 credits and 2 retake\n\nWhere is the library?\n\nI lost my student card\n\nThis is an AI assistant. Check important decisions with the Training Office.\n\n🎓 FIT Study Assistant\n\nHi! I can answer questions about fees, offices and the student handbook. Try: “Can I register my thesis with 118 credits?”",
+    "dimensions": {
+      "width": 375,
+      "scroll": 375
+    }
+  },
+  {
+    "check": "phone_card",
+    "text": "According to 3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102).\n\nSources: S26#3 — 3 Student card replacement\n\n👍\n\n👎",
+    "dimensions": {
+      "width": 375,
+      "scroll": 375
+    },
+    "buttons": [
+      {
+        "x": 108,
+        "y": 557.09375,
+        "width": 45.96875,
+        "height": 40
+      },
+      {
+        "x": 108,
+        "y": 613.09375,
+        "width": 45.96875,
+        "height": 40
+      }
+    ]
+  },
+  {
+    "check": "screenshot",
+    "file": "baseline-phone-card.png",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    }
+  },
+  {
+    "check": "screenshot",
+    "file": "fault-provider-loading.png",
+    "viewport": {
+      "width": 1280,
+      "height": 1000
+    }
+  },
+  {
+    "check": "degraded",
+    "text": "5.3 Thesis registration: Students may register a thesis when they have at least 120 accumulated credits and a cumulative GPA of at least 2.0. Registration opens in week 1 and closes in week 3 of the semester.\n\nSources: H26#5.3 — 5.3 Thesis registration\n\nShown directly from the source document (the AI helper was unavailable).\n\n👍\n\n👎"
+  },
+  {
+    "check": "screenshot",
+    "file": "fault-provider-degraded.png",
+    "viewport": {
+      "width": 1280,
+      "height": 1000
+    }
+  },
+  {
+    "check": "final_database",
+    "feedback": [
+      [
+        "bd6e297667a8",
+        1
+      ],
+      [
+        "43af144d463c",
+        -1
+      ],
+      [
+        "aef2748046d5",
+        -1
+      ]
+    ],
+    "interactions": [
+      [
+        5
+      ]
+    ],
+    "sessions": [
+      [
+        2
+      ]
+    ]
+  },
+  {
+    "check": "completed",
+    "result": "passed all assertions"
+  }
+]

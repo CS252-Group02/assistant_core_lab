@@ -1,0 +1,18 @@
+{
+  "baseline": "41703b6d474b561ad82173f1cb582bb05357ebce",
+  "file_sha256": {
+    "ui/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "ui/app.py": "116a76a0720945c73a0857096a463663ce4dff73301d0d48754c5b387ea3bbc1",
+    "ui/logic.py": "9c8e36094f71d4065d58368a61f7ceb42cc6dba60ca0123a406995389fdd8ecf",
+    "ui/api_client.py": "1546721a46ea6a029f601f22dc6f79937c6a8831b74004b2818c85beb2f42824",
+    "tests/test_ui.py": "7ef9a81a94d5f80bbccd2ce4abb69993f9973216b790099f7a243266475cb814",
+    "tests/test_ui_official.py": "a681fc2555b27b699faed093fc6b04ffd904d9adf729eeb349f5b14672689983",
+    "tests/test_ui_sources.py": "ca50a438c32276ecaf9cf3fa4d74640f9b57a511d5f7829ac629fd3100adfe8e",
+    "tests/test_ui_feedback.py": "ad76470da98b70f6ef731135abf5c7264ae925321b2fbda4b3e61c895ee0de1b",
+    "worksheets/usability_checklist.md": "46d7ee0b42b7bd7167b599f8424acda5e74cd48bf706317186949eb54f7a300b",
+    "requirements.txt": "2636edca1472190e7fd566f0c95c4107a84c831ce373f558c2e39c854465c257",
+    "pyproject.toml": "43ed17371b118483d944246f76c27cb36013397d23a4f8f651b5671b9d870f66"
+  },
+  "official_worksheet_sha256": "99717e3e03ab9a3137defb3bd3b06a12f7feb2bad28514208e3ff6c6554de3e6",
+  "notes": "File overlays and configuration are specified in integration_verification.md; no temporary code is committed."
+}

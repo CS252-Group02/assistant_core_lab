@@ -1,0 +1,100 @@
+[
+  {
+    "question": "Can I register my thesis with 118 credits?",
+    "response": {
+      "answer": "According to 5.3 Thesis registration: Students may register a thesis when they have at least 120 accumulated credits and a cumulative GPA of at least 2.0.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#5.3",
+          "title": "5.3 Thesis registration"
+        }
+      ],
+      "degraded": false,
+      "escalate": false,
+      "path": "llm",
+      "confidence": 0.7
+    }
+  },
+  {
+    "question": "I lost my student card",
+    "response": {
+      "answer": "According to 3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102).",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#3",
+          "title": "3 Student card replacement"
+        }
+      ],
+      "degraded": false,
+      "escalate": false,
+      "path": "llm",
+      "confidence": 0.7
+    }
+  },
+  {
+    "question": "Where do I replace a lost student card?",
+    "response": {
+      "answer": "According to 3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102).",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#3",
+          "title": "3 Student card replacement"
+        }
+      ],
+      "degraded": false,
+      "escalate": false,
+      "path": "llm",
+      "confidence": 0.7
+    }
+  },
+  {
+    "question": "Find out if you can register your thesis with 118 credits, and where to replace a lost student card.",
+    "response": {
+      "answer": "According to 3 Student card replacement: A lost student card can be replaced at Student Affairs (room I.102).",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "S26#3",
+          "title": "3 Student card replacement"
+        }
+      ],
+      "degraded": false,
+      "escalate": false,
+      "path": "llm",
+      "confidence": 0.7
+    }
+  },
+  {
+    "question": "who will win the football match",
+    "response": {
+      "answer": "I'm not confident I can answer that from the official documents. Please contact the Training Office (room I.101) or ask your academic advisor.",
+      "intent": "unknown",
+      "sources": [],
+      "degraded": false,
+      "escalate": true,
+      "path": "abstain",
+      "confidence": 0.0
+    }
+  },
+  {
+    "fault": "StubLLM(fail=True)",
+    "question": "Can I register my thesis with 118 credits?",
+    "response": {
+      "answer": "5.3 Thesis registration: Students may register a thesis when they have at least 120 accumulated credits and a cumulative GPA of at least 2.0. Registration opens in week 1 and closes in week 3 of the semester.",
+      "intent": "rule",
+      "sources": [
+        {
+          "id": "H26#5.3",
+          "title": "5.3 Thesis registration"
+        }
+      ],
+      "degraded": true,
+      "escalate": false,
+      "path": "retrieval",
+      "confidence": null
+    }
+  }
+]

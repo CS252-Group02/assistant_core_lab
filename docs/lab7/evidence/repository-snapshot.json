@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-28",
+  "base": "41703b6d474b561ad82173f1cb582bb05357ebce",
+  "official": "397639e11ac3bb47516d5de8211ccbfb3955794a",
+  "prs": [
+    {
+      "number": 41,
+      "url": "https://github.com/CS252-Group02/assistant_core_lab/pull/41",
+      "title": "feat(lab7): display citation IDs and titles under answers",
+      "state": "open",
+      "draft": false,
+      "head": "test/lab07-tv2-source-display",
+      "head_sha": "4c6850e81e44fe0bc094818ba5731d772edbae83",
+      "inspected_base_sha": "05996c8e6029c94b94cbb2b5fb183f551deb0f59",
+      "updated_at": "2026-11-22T13:02:41Z",
+      "review_events": []
+    },
+    {
+      "number": 44,
+      "url": "https://github.com/CS252-Group02/assistant_core_lab/pull/44",
+      "title": "Test(lab07): automated tests and browser check",
+      "state": "open",
+      "draft": false,
+      "head": "test/lab07-tv6-Tests_and_Check",
+      "head_sha": "c7c869bffbc4a7ce3a2ce742dfc9dd63e92f84b4",
+      "inspected_base_sha": "05996c8e6029c94b94cbb2b5fb183f551deb0f59",
+      "updated_at": "2026-11-24T14:54:40Z",
+      "review_events": []
+    },
+    {
+      "number": 47,
+      "url": "https://github.com/CS252-Group02/assistant_core_lab/pull/47",
+      "title": "feat(lab07): complete TV4 feedback controls",
+      "state": "open",
+      "draft": false,
+      "head": "codex/lab07-tv4-feedback",
+      "head_sha": "d12d8d828b381aec536dad0e0882cfe7502c9709",
+      "inspected_base_sha": "05996c8e6029c94b94cbb2b5fb183f551deb0f59",
+      "updated_at": "2026-11-27T16:09:22Z",
+      "review_events": [
+        {
+          "url": "https://github.com/CS252-Group02/assistant_core_lab/pull/47#pullrequestreview-6090796859",
+          "review": "APPROVED",
+          "created_at": "2026-11-27T16:09:22Z"
+        }
+      ]
+    }
+  ]
+}
